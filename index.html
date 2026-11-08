@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BDT333.COM - পুরস্কার ও সাইন-ইন</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    
+    body {
+      background-color: #f4f6f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-y: auto;
+      padding-bottom: 30px;
+    }
+
+    .page-view {
+      width: 100%;
+      max-width: 480px;
+      display: none;
+      flex-direction: column;
+    }
+    .page-view.active {
+      display: flex;
+    }
+
+    .main-page-header {
+      width: 100%;
+      background: linear-gradient(135deg, #ff7e39, #ff512f);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    /* ================= পেজ ১: মূল ড্যাশবোর্ড ================= */
+    .dashboard-top-banner {
+      width: 100%;
+      background: linear-gradient(135deg, #ff7e39, #ff512f);
+      padding: 0 15px 15px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .gold-vip-card {
+      background: linear-gradient(135deg, #fff4d0, #fcebb6);
+      border: 2px solid #e6c567;
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+
+    .vip-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .user-info-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .profile-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ff512f;
+      flex-shrink: 0;
+    }
+
+    .user-texts h3 {
+      font-size: 14px;
+      color: #222;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .user-texts p {
+      font-size: 11px;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .user-balance-row {
+      font-size: 16px;
+      font-weight: 800;
+      color: #222;
+      margin-top: 2px;
+    }
+
+    .signin-top-badge {
+      background: linear-gradient(135deg, #ff4757, #ff6b81);
+      color: #ffffff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
+      flex-shrink: 0;
+    }
+
+    .vip-bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #444;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      padding-top: 8px;
+    }
+
+    .vip-badge-tag {
+      color: #b8860b;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      background: #e0e0e0;
+      height: 5px;
+      border-radius: 3px;
+      margin-top: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      width: 65%;
+      height: 100%;
+      background: #ff512f;
+      border-radius: 3px;
+    }
+
+    .dashboard-grid-area {
+      padding: 15px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .grid-box-card {
+      border-radius: 14px;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: relative;
+      transition: 0.2s;
+    }
+    .grid-box-card:active {
+      transform: scale(0.97);
+    }
+
+    .box-icon-circle {
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #ffffff;
+      position: relative;
+    }
+
+    .box-title-text {
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .badge-counter {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #ff4757;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 50px;
+      border: 1px solid #ffffff;
+    }
+
+    /* ================= পেজ ২: দাবি করা (Claim Page) ================= */
+    .claim-header-banner {
+      width: 100%;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      padding: 12px 16px 25px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      color: #ffffff;
+    }
+
+    .claim-nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .claim-user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .claim-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffffff;
+    }
+
+    .claim-user-info h4 {
+      font-size: 14px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .claim-user-info .bal {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-top: 2px;
+    }
+
+    .claim-cards-wrapper {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .reward-box-item {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 12px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border: 1px solid #eaeaea;
+    }
+
+    .reward-left-tag {
+      color: #ffffff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      min-width: 85px;
+      text-align: center;
+    }
+
+    .reward-middle-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+      margin-left: 12px;
+    }
+
+    .reward-title-main {
+      font-size: 13px;
+      font-weight: bold;
+      color: #222;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .reward-desc-sub {
+      font-size: 11px;
+      color: #666;
+    }
+
+    .claim-action-btn {
+      background: #2ed573;
+      color: #ffffff;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(46, 213, 115, 0.4);
+    }
+    .claim-action-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* ================= পেজ ৩: সাইন-ইন পেজ ================= */
+    .signin-header-banner {
+      width: 100%;
+      background: linear-gradient(135deg, #ff7e39, #ff512f);
+      padding: 12px 16px 25px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      color: #ffffff;
+    }
+
+    .signin-stats-card {
+      width: 92%;
+      max-width: 450px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      color: #333;
+      margin: 15px auto 0 auto;
+    }
+
+    .stat-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .stat-num-blue {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0072ff;
+    }
+    .stat-num-red {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ff4757;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: #666;
+    }
+
+    .signin-plan-box {
+      width: 92%;
+      max-width: 450px;
+      margin: 12px auto 0 auto;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .plan-title-header {
+      font-size: 13px;
+      font-weight: bold;
+      color: #ff4757;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .betting-req-box {
+      background: #fff8f6;
+      border: 1px solid #ffe6e2;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 6px;
+    }
+    .betting-amount {
+      font-size: 14px;
+      font-weight: bold;
+      color: #ff4757;
+      margin-top: 2px;
+    }
+
+    .days-grid-container {
+      width: 100%;
+      max-width: 450px;
+      margin: 12px auto;
+      padding: 0 15px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .day-card {
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .day-card-header {
+      background: #0072ff;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: bold;
+      text-align: center;
+      padding: 5px 0;
+    }
+
+    .day-card-body {
+      padding: 10px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .day-bonus-icons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 16px;
+    }
+
+    .day-amount-text {
+      font-size: 11px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .day-signin-btn {
+      background: #2ed573;
+      color: #ffffff;
+      border: none;
+      width: 100%;
+      padding: 5px 0;
+      border-radius: 15px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 2px 6px rgba(46, 213, 115, 0.4);
+    }
+    .day-signin-btn.claimed {
+      background: linear-gradient(135deg, #ff4757, #ff6b81);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(255, 71, 87, 0.4);
+      cursor: not-allowed;
+    }
+    .day-signin-btn.disabled {
+      background: #dcdde1;
+      color: #718093;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .day-signin-btn:active {
+      transform: scale(0.95);
+    }
+
+    .signin-rules-section {
+      width: 92%;
+      max-width: 450px;
+      margin: 10px auto 25px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .rules-heading {
+      font-size: 13px;
+      font-weight: bold;
+      color: #ff4757;
+      margin-bottom: 6px;
+    }
+    .rules-text {
+      font-size: 11px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* ================= পেজ ৪: বন্ধুদের আমন্ত্রণ জানান (Invite Page) ================= */
+    .invite-header {
+      width: 100%;
+      background: #112255;
+      padding: 15px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .invite-body {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .revenue-target-card {
+      background: linear-gradient(135deg, #2b4cbe, #1a2f80);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .revenue-target-card h3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .revenue-amount {
+      font-size: 26px;
+      font-weight: 800;
+      color: #ffd700;
+      margin: 5px 0 12px 0;
+    }
+
+    .invite-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .invite-stat-box {
+      background: linear-gradient(135deg, #3b5bdb, #2242c7);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      color: #ffffff;
+    }
+    .invite-stat-box .title {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+    .invite-stat-box .val {
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffd700;
+      margin-top: 4px;
+    }
+
+    .share-link-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .link-box-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f3f5;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+    }
+    .link-box-row input {
+      border: none;
+      background: none;
+      font-size: 11px;
+      color: #333;
+      flex: 1;
+      outline: none;
+    }
+
+    .social-share-icons {
+      display: flex;
+      justify-content: space-around;
+      font-size: 24px;
+      margin-top: 5px;
+    }
+    .social-share-icons i {
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .social-share-icons i:active {
+      transform: scale(0.9);
+    }
+
+    .live-winners-card {
+      background: linear-gradient(135deg, #2b4cbe, #1a2f80);
+      border-radius: 12px;
+      padding: 15px;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .winners-scroll-container {
+      height: 140px;
+      overflow: hidden;
+      position: relative;
+      margin-top: 10px;
+    }
+
+    .winners-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: absolute;
+      width: 100%;
+      animation: scrollUp 8s linear infinite;
+    }
+    .winners-list:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scrollUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    .winner-item {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= পেজ ১: মূল ড্যাশবোর্ড ================= -->
+  <div class="page-view active" id="main-dashboard-page">
+    <div class="main-page-header">
+      <button onclick="goBackToPreviousPage()" style="background:none; border:none; color:#fff; font-size:16px; cursor:pointer;"><i class="fa-solid fa-chevron-left"></i> পিছনের পেজ</button>
+      <span>BDT333.COM - পুরস্কার ও সাইন-ইন</span>
+      <i class="fa-solid fa-gift"></i>
+    </div>
+
+    <div class="dashboard-top-banner">
+      <div class="gold-vip-card">
+        <div class="vip-top-row">
+          <div class="user-info-area">
+            <img src="https://i.postimg.cc/jdvdM8F1/file-0000000077f48211ae5c38cf077f8157.png" alt="Logo" class="profile-avatar">
+            <div class="user-texts">
+              <h3 id="dash-phone">লোড হচ্ছে...</h3>
+              <p>ডাকনাম: <span id="dash-nickname">লোড হচ্ছে...</span></p>
+              <div class="user-balance-row" id="dash-balance">৳ 0.00</div>
+            </div>
+          </div>
+          <button class="signin-top-badge" onclick="switchToSigninPage()"><i class="fa-solid fa-calendar-check"></i> সাইইন ইন ></button>
+        </div>
+
+        <div class="vip-bottom-row">
+          <div>
+            <span class="vip-badge-tag"><i class="fa-solid fa-crown"></i> VIP1</span>
+          </div>
+          <div>
+            <span>সুবিধা <i class="fa-solid fa-circle-info"></i> 2 / 3</span>
+          </div>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid-area">
+      <div class="grid-box-card" onclick="switchToClaimPage()" style="background: linear-gradient(135deg, #2ed573, #10ac84);">
+        <div class="box-icon-circle">
+          <i class="fa-solid fa-box-archive"></i>
+          <span class="badge-counter" id="total-badge-count">0</span>
+        </div>
+        <span class="box-title-text">দাবি করা</span>
+      </div>
+
+      <div class="grid-box-card" onclick="switchToSigninPage()" style="background: linear-gradient(135deg, #00c6ff, #0072ff);">
+        <div class="box-icon-circle">
+          <i class="fa-solid fa-calendar-days"></i>
+        </div>
+        <span class="box-title-text">সাইন ইন</span>
+      </div>
+
+      <div class="grid-box-card" style="background: linear-gradient(135deg, #f7b733, #fc4a1a);">
+        <div class="box-icon-circle">
+          <i class="fa-solid fa-vault"></i>
+        </div>
+        <span class="box-title-text">উদ্ধার তহবিল</span>
+      </div>
+
+      <div class="grid-box-card" onclick="switchToInvitePage()" style="background: linear-gradient(135deg, #eb3b5a, #fa8231);">
+        <div class="box-icon-circle">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <span class="box-title-text">বন্ধুদের আমন্ত্রণ জানান</span>
+      </div>
+
+      <div class="grid-box-card" style="background: linear-gradient(135deg, #00d2d3, #54a0ff); grid-column: span 2;">
+        <div class="box-icon-circle">
+          <i class="fa-solid fa-percent"></i>
+        </div>
+        <span class="box-title-text">প্রচার কোড</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= পেজ ২: দাবি করা (Claim Page) ================= -->
+  <div class="page-view" id="claim-rewards-page">
+    <div class="claim-header-banner">
+      <div class="claim-nav-row">
+        <button onclick="switchToDashboard()" style="background:none; border:none; color:#fff; font-size:16px; cursor:pointer;"><i class="fa-solid fa-chevron-left"></i> পেছনের হোম</button>
+        <span>দাবি করা</span>
+        <i class="fa-solid fa-ticket" style="font-size: 16px;"></i>
+      </div>
+
+      <div class="claim-user-profile">
+        <img src="https://i.postimg.cc/jdvdM8F1/file-0000000077f48211ae5c38cf077f8157.png" alt="User" class="claim-avatar">
+        <div class="claim-user-info">
+          <h4 id="claim-page-phone">লোড হচ্ছে...</h4>
+          <div class="bal" id="claim-page-balance">৳ 0.00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="claim-cards-wrapper" id="claim-cards-list-container">
+      <div style="text-align: center; color: #888; font-size: 13px; padding: 30px;">লোড হচ্ছে...</div>
+    </div>
+  </div>
+
+  <!-- ================= পেজ ৩: সাইন-ইন পেজ ================= -->
+  <div class="page-view" id="signin-page">
+    <div class="signin-header-banner">
+      <div class="claim-nav-row">
+        <button onclick="switchToDashboard()" style="background:none; border:none; color:#fff; font-size:16px; cursor:pointer;"><i class="fa-solid fa-chevron-left"></i> পেছনের হোম</button>
+        <span>সাইন ইন</span>
+        <i class="fa-solid fa-calendar-check" style="font-size: 16px;"></i>
+      </div>
+
+      <div class="claim-user-profile">
+        <img src="https://i.postimg.cc/jdvdM8F1/file-0000000077f48211ae5c38cf077f8157.png" alt="User" class="claim-avatar">
+        <div class="claim-user-info">
+          <h4 id="signin-page-phone">লোড হচ্ছে...</h4>
+          <div class="bal" id="signin-page-balance">৳ 0.00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="signin-stats-card">
+      <div class="stat-col">
+        <span class="stat-num-blue" id="checked-days-count">0</span>
+        <span class="stat-label">চেক-ইন দিন</span>
+      </div>
+      <div style="width: 1px; background: #e0e0e0; height: 30px;"></div>
+      <div class="stat-col">
+        <span class="stat-num-red" id="total-signin-rewards">0</span>
+        <span class="stat-label">সাইন ইন মোট পুরস্কার</span>
+      </div>
+    </div>
+
+    <div class="signin-plan-box">
+      <div class="plan-title-header">
+        <i class="fa-solid fa-gift"></i> নতুন সদস্য বৃদ্ধির পরিকল্পনা
+      </div>
+      <div style="font-size: 12px; font-weight: bold; color: #222; display: flex; align-items: center; gap: 5px;">
+        আজও চেক ইন করা হয়নি <i class="fa-solid fa-circle-question" style="color: #ff4757;"></i>
+      </div>
+      <div class="betting-req-box">
+        বেটিং শর্ত :
+        <div class="betting-amount">৳ 3,000.00</div>
+      </div>
+    </div>
+
+    <div class="days-grid-container" id="days-grid-wrapper">
+      <div style="text-align: center; color: #888; font-size: 13px; padding: 20px; grid-column: span 3;">লোড হচ্ছে...</div>
+    </div>
+
+    <div class="signin-rules-section">
+      <div class="rules-heading">সাইন-ইন নিয়ম</div>
+      <div class="rules-text">
+        নতুন সদস্য বৃদ্ধির পরিকল্পনা ৩০ দিনের জন্য, প্রতিদিন থাকবে আলাদা আলাদা কাজের চাহিদা。<br><br>
+        এই পরিকল্পনার মাধ্যমে নতুন সদস্যরা আরও বেশি পুরস্কার পাবে এবং এটি শুধুমাত্র নতুন ব্যবহারকারীদের জন্য প্রযোজ্য।
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= পেজ ৪: বন্ধুদের আমন্ত্রণ জানান (Invite Page) ================= -->
+  <div class="page-view" id="invite-friends-page">
+    <div class="invite-header">
+      <button onclick="switchToDashboard()" style="background:none; border:none; color:#fff; font-size:16px; cursor:pointer;"><i class="fa-solid fa-chevron-left"></i> পেছনের হোম</button>
+      <span>বন্ধুদের আমন্ত্রণ জানান</span>
+      <i class="fa-solid fa-share-nodes" onclick="nativeShareLink()" style="cursor: pointer;"></i>
+    </div>
+
+    <div class="invite-body">
+      <div class="revenue-target-card">
+        <h3>রাজস্ব লক্ষ্যমাত্রা</h3>
+        <div class="revenue-amount">৳ 1,777.00</div>
+        <p style="font-size: 12px; opacity: 0.85;">১ জন বন্ধুকে আমন্ত্রণ জানিয়ে ১৭৭৭ টাকা জিতে নিন</p>
+      </div>
+
+      <div class="invite-stats-grid">
+        <div class="invite-stat-box">
+          <div class="title">আজকের আয়</div>
+          <div class="val">৳ 0.00</div>
+        </div>
+        <div class="invite-stat-box">
+          <div class="title">গতকালের আয়</div>
+          <div class="val">৳ 0.00</div>
+        </div>
+        <div class="invite-stat-box">
+          <div class="title">সূচিপত্রধারী</div>
+          <div class="val">0</div>
+        </div>
+        <div class="invite-stat-box">
+          <div class="title">যোগ্য পরিচয় করা</div>
+          <div class="val">0</div>
+        </div>
+      </div>
+
+      <div class="share-link-card">
+        <div style="font-size: 12px; font-weight: bold; color: #333;">আপনার বন্ধুদের সাথে ভাগ করুন</div>
+        <div class="link-box-row">
+          <input type="text" id="referral-link-input" value="https://jonahidahmod05-design.github.io/BDT3333/" readonly>
+          <button onclick="copyReferralLink()" style="background:#0072ff; color:#fff; border:none; padding:5px 10px; border-radius:6px; font-size:11px; cursor:pointer;">কপি</button>
+        </div>
+        
+        <div class="social-share-icons">
+          <i class="fa-brands fa-facebook" style="color: #3b5998;" title="ফেসবুকে শেয়ার করুন" onclick="shareToSocial('facebook')"></i>
+          <i class="fa-solid fa-comment-dots" style="color: #00c6ff;" title="মেসেঞ্জারে শেয়ার করুন" onclick="shareToSocial('messenger')"></i>
+          <i class="fa-brands fa-telegram" style="color: #0088cc;" title="টেলিগ্রামে শেয়ার করুন" onclick="shareToSocial('telegram')"></i>
+          <i class="fa-brands fa-whatsapp" style="color: #25d366;" title="হোয়াটসঅ্যাপে শেয়ার করুন" onclick="shareToSocial('whatsapp')"></i>
+          <i class="fa-brands fa-x-twitter" style="color: #000;" title="টুইটারে শেয়ার করুন" onclick="shareToSocial('twitter')"></i>
+        </div>
+      </div>
+
+      <div class="live-winners-card">
+        <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px;"><i class="fa-solid fa-trophy" style="color: #ffd700;"></i> যে ব্যক্তি পুরস্কৃত হয়েছে</div>
+        <div class="winners-scroll-container">
+          <div class="winners-list">
+            <div class="winner-item"><span>19*******2</span> <span style="color:#ffd700;">গৃহীত ৳ 120.00</span></div>
+            <div class="winner-item"><span>18*******7</span> <span style="color:#ffd700;">গৃহীত ৳ 120.00</span></div>
+            <div class="winner-item"><span>17*******0</span> <span style="color:#ffd700;">গৃহীত ৳ 300.00</span></div>
+            <div class="winner-item"><span>19*******6</span> <span style="color:#ffd700;">গৃহীত ৳ 200.00</span></div>
+            <div class="winner-item"><span>017******8</span> <span style="color:#ffd700;">গৃহীত ৳ 500.00</span></div>
+            <div class="winner-item"><span>19*******2</span> <span style="color:#ffd700;">গৃহীত ৳ 120.00</span></div>
+            <div class="winner-item"><span>18*******7</span> <span style="color:#ffd700;">গৃহীত ৳ 120.00</span></div>
+            <div class="winner-item"><span>17*******0</span> <span style="color:#ffd700;">গৃহীত ৳ 300.00</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC0oyxmcovJ2HeCIrH-5ycLyeNV-Eb4AJU",
+      authDomain: "facebook-boost-and-post.firebaseapp.com",
+      projectId: "facebook-boost-and-post",
+      storageBucket: "facebook-boost-and-post.firebasestorage.app",
+      messagingSenderId: "575755901748",
+      appId: "1:575755901748:web:847b8d735579a60d6c6361",
+      measurementId: "G-Q040B1EW8M"
+    };
+
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+    const db = firebase.firestore();
+
+    /* 🔥 ১. ইউআরএল (URL) থেকে ডাইনামিক প্যারামিটার চেনার আপডেট লজিক */
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentUserPhone = urlParams.get('user_phone') || urlParams.get('phone') || urlParams.get('user');
+    let passedBalance = urlParams.get('user_balance') || urlParams.get('balance');
+
+    if (currentUserPhone) {
+      localStorage.setItem('userPhone', currentUserPhone);
+    } else {
+      currentUserPhone = localStorage.getItem('userPhone') || "01739369513";
+    }
+
+    /* 🔥 ২. লিংকের মাধ্যমে পাস করা ব্যালেন্স ফায়ারবেসে সাথে সাথে সিঙ্ক করা */
+    if (passedBalance !== null && !isNaN(parseFloat(passedBalance))) {
+      const numBal = parseFloat(passedBalance);
+      db.collection('users_chats').doc(currentUserPhone).set({
+        balance: numBal
+      }, { merge: true }).catch(err => console.log(err));
+    }
+
+    /* 🔥 ৩. ফায়ারবেস লাইভ ব্যালেন্স ও ইউজার তথ্য সিঙ্ক লিসেনার */
+    db.collection('users_chats').doc(currentUserPhone).onSnapshot((doc) => {
+      if (doc.exists) {
+        const userData = doc.data();
+        const livePhone = doc.id; 
+        const liveNickname = userData.name || userData.nickname || "ইউজার";
+        const liveBalance = userData.balance !== undefined ? parseFloat(userData.balance).toFixed(2) : "0.00";
+
+        // ড্যাশবোর্ডে বসানো
+        document.getElementById('dash-phone').innerHTML = `${livePhone} <i class="fa-solid fa-pen" style="font-size: 10px; color: #777;"></i>`;
+        document.getElementById('dash-nickname').innerText = liveNickname;
+        document.getElementById('dash-balance').innerText = `৳ ${liveBalance}`;
+
+        // দাবি করা পেজে বসানো
+        document.getElementById('claim-page-phone').innerText = livePhone;
+        document.getElementById('claim-page-balance').innerText = `৳ ${liveBalance}`;
+
+        // সাইন-ইন পেজে বসানো
+        document.getElementById('signin-page-phone').innerText = livePhone;
+        document.getElementById('signin-page-balance').innerText = `৳ ${liveBalance}`;
+      } else {
+        document.getElementById('dash-phone').innerText = currentUserPhone;
+        document.getElementById('dash-nickname').innerText = "ইউজার";
+        document.getElementById('dash-balance').innerText = "৳ 0.00";
+        document.getElementById('claim-page-phone').innerText = currentUserPhone;
+        document.getElementById('claim-page-balance').innerText = "৳ 0.00";
+        document.getElementById('signin-page-phone').innerText = currentUserPhone;
+        document.getElementById('signin-page-balance').innerText = "৳ 0.00";
+      }
+    });
+
+    // ব্যাজ কাউন্ট চেক
+    db.collection('admin_rewards')
+      .where('status', '==', 'Pending')
+      .onSnapshot((snapshot) => {
+        let count = 0;
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          if (data.userPhone === currentUserPhone || data.userPhone === 'ALL_USERS') {
+            count++;
+          }
+        });
+
+        const badge = document.getElementById('total-badge-count');
+        if (count > 0) {
+          badge.innerText = count;
+          badge.style.display = 'block';
+        } else {
+          badge.style.display = 'none';
+        }
+      });
+
+    function goBackToPreviousPage() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "https://jonahidahmod05-design.github.io/BDT3333/";
+      }
+    }
+
+    function switchToClaimPage() {
+      document.getElementById('main-dashboard-page').classList.remove('active');
+      document.getElementById('signin-page').classList.remove('active');
+      document.getElementById('invite-friends-page').classList.remove('active');
+      document.getElementById('claim-rewards-page').classList.add('active');
+      fetchClaimRewardsList();
+    }
+
+    function switchToSigninPage() {
+      document.getElementById('main-dashboard-page').classList.remove('active');
+      document.getElementById('claim-rewards-page').classList.remove('active');
+      document.getElementById('invite-friends-page').classList.remove('active');
+      document.getElementById('signin-page').classList.add('active');
+      renderSigninDaysGrid();
+    }
+
+    function switchToInvitePage() {
+      document.getElementById('main-dashboard-page').classList.remove('active');
+      document.getElementById('claim-rewards-page').classList.remove('active');
+      document.getElementById('signin-page').classList.remove('active');
+      document.getElementById('invite-friends-page').classList.add('active');
+    }
+
+    function switchToDashboard() {
+      document.getElementById('claim-rewards-page').classList.remove('active');
+      document.getElementById('signin-page').classList.remove('active');
+      document.getElementById('invite-friends-page').classList.remove('active');
+      document.getElementById('main-dashboard-page').classList.add('active');
+    }
+
+    function copyReferralLink() {
+      const linkInput = document.getElementById('referral-link-input');
+      linkInput.select();
+      linkInput.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(linkInput.value);
+      alert("রেফারেল লিংক সফলভাবে কপি করা হয়েছে!");
+    }
+
+    function shareToSocial(platform) {
+      const shareUrl = document.getElementById('referral-link-input').value;
+      const shareText = "BDT333.COM থেকে উপহার জিততে আমার আমন্ত্রণ লিংকে প্রবেশ করুন:";
+      let targetWindowUrl = "";
+
+      if (platform === 'facebook') {
+        targetWindowUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+      } else if (platform === 'messenger') {
+        targetWindowUrl = `fb-messenger://share?link=${encodeURIComponent(shareUrl)}`;
+      } else if (platform === 'telegram') {
+        targetWindowUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+      } else if (platform === 'whatsapp') {
+        targetWindowUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + " " + shareUrl)}`;
+      } else if (platform === 'twitter') {
+        targetWindowUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+      }
+
+      if (targetWindowUrl) {
+        window.open(targetWindowUrl, '_blank');
+      }
+    }
+
+    function nativeShareLink() {
+      const shareUrl = document.getElementById('referral-link-input').value;
+      if (navigator.share) {
+        navigator.share({
+          title: 'BDT333.COM আমন্ত্রণ',
+          text: 'আমার আমন্ত্রণ লিংক:',
+          url: shareUrl,
+        }).catch(() => {});
+      } else {
+        copyReferralLink();
+      }
+    }
+
+    // ৩০ দিনের সাইন-ইন গ্রিড রেন্ডার
+    function renderSigninDaysGrid() {
+      const gridWrapper = document.getElementById('days-grid-wrapper');
+      gridWrapper.innerHTML = `<div style="text-align: center; color: #888; font-size: 13px; padding: 20px; grid-column: span 3;">লোড হচ্ছে...</div>`;
+
+      db.collection('signin_rewards').doc(currentUserPhone).onSnapshot((doc) => {
+        let claimedDays = [];
+        let customAmounts = {};
+
+        if (doc.exists) {
+          claimedDays = doc.data().claimedDays || [];
+          customAmounts = doc.data().amounts || {};
+        }
+
+        document.getElementById('checked-days-count').innerText = claimedDays.length;
+        document.getElementById('total-signin-rewards').innerText = claimedDays.length;
+
+        gridWrapper.innerHTML = '';
+
+        for (let i = 1; i <= 30; i++) {
+          let amount = customAmounts[i] !== undefined ? parseFloat(customAmounts[i]) : 0;
+          let isClaimed = claimedDays.includes(i);
+
+          let iconHtml = `<i class="fa-solid fa-money-bill-wave" style="color: #2ed573;"></i> <i class="fa-solid fa-envelope-open-text" style="color: #ff4757;"></i>`;
+          if (i >= 10) {
+            iconHtml = `<i class="fa-solid fa-money-bill-wave" style="color: #2ed573;"></i> <i class="fa-solid fa-box-archive" style="color: #ffa502;"></i>`;
+          }
+
+          const card = document.createElement('div');
+          card.classList.add('day-card');
+
+          let btnClass = "";
+          let btnText = "সাইন ইন";
+          let btnAction = "";
+
+          if (isClaimed) {
+            btnClass = "claimed";
+            btnText = "দাবিকৃত";
+            amount = 0;
+            btnAction = "";
+          } else if (amount > 0) {
+            btnClass = "";
+            btnText = "সাইন ইন";
+            btnAction = `onclick="claimSigninDay(${i}, ${amount})"`;
+          } else {
+            btnClass = "disabled";
+            btnText = "অপেক্ষমাণ";
+            btnAction = "";
+          }
+
+          card.innerHTML = `
+            <div class="day-card-header">দিন ${i}</div>
+            <div class="day-card-body">
+              <div class="day-bonus-icons">${iconHtml}</div>
+              <div class="day-amount-text">৳ ${amount.toFixed(2)}</div>
+              <button class="day-signin-btn ${btnClass}" ${btnAction}>${btnText}</button>
+            </div>
+          `;
+          gridWrapper.appendChild(card);
+        }
+      });
+    }
+
+    function claimSigninDay(dayNum, amount) {
+      const numericAmount = parseFloat(amount);
+      if (isNaN(numericAmount) || numericAmount <= 0) {
+        alert("এই দিনের জন্য কোনো পুরস্কার নির্ধারিত নেই!");
+        return;
+      }
+
+      const userRef = db.collection('users_chats').doc(currentUserPhone);
+      const signinRef = db.collection('signin_rewards').doc(currentUserPhone);
+
+      db.runTransaction((transaction) => {
+        return transaction.get(userRef).then((userDoc) => {
+          return transaction.get(signinRef).then((signinDoc) => {
+            let claimedDays = [];
+            let customAmounts = {};
+
+            if (signinDoc.exists) {
+              claimedDays = signinDoc.data().claimedDays || [];
+              customAmounts = signinDoc.data().amounts || {};
+            }
+
+            if (claimedDays.includes(dayNum)) {
+              throw new Error("এই দিনের বোনাস ইতিমধ্যে দাবি করা হয়েছে!");
+            }
+
+            let currentBal = 0;
+            if (userDoc.exists && userDoc.data().balance !== undefined) {
+              currentBal = parseFloat(userDoc.data().balance);
+            }
+            const newBal = currentBal + numericAmount;
+
+            claimedDays.push(dayNum);
+            customAmounts[dayNum] = 0;
+
+            transaction.set(userRef, { balance: newBal }, { merge: true });
+            transaction.set(signinRef, { claimedDays: claimedDays, amounts: customAmounts }, { merge: true });
+          });
+        });
+      }).then(() => {
+        alert(`অভিনন্দন! দিন ${dayNum} এর ৳${numericAmount} সফলভাবে আপনার মূল অ্যাকাউন্টে জমা হয়েছে!`);
+      }).catch((err) => {
+        alert("ত্রুটি: " + err.message);
+      });
+    }
+
+    function fetchClaimRewardsList() {
+      const container = document.getElementById('claim-cards-list-container');
+      container.innerHTML = `<div style="text-align: center; color: #888; font-size: 13px; padding: 20px;">লোড হচ্ছে...</div>`;
+
+      db.collection('admin_rewards')
+        .where('status', '==', 'Pending')
+        .get()
+        .then((snapshot) => {
+          container.innerHTML = '';
+          let list = [];
+
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            if (data.userPhone === currentUserPhone || data.userPhone === 'ALL_USERS') {
+              list.push({ id: doc.id, ...data });
+            }
+          });
+
+          list.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+          if (list.length === 0) {
+            container.innerHTML = `<div style="text-align: center; color: #888; font-size: 13px; padding: 30px;">বর্তমানে কোনো দাবি করার মতো বক্স বা অফার নেই!</div>`;
+            return;
+          }
+
+          list.forEach((item) => {
+            const card = document.createElement('div');
+            card.classList.add('reward-box-item');
+
+            card.innerHTML = `
+              <div class="reward-left-tag" style="background: ${item.badgeColor || 'linear-gradient(135deg, #ff4757, #ff6b81)'};">
+                <span style="font-size: 10px;">কুপন</span>
+                <span style="font-size: 11px; font-weight: bold; margin-top: 2px;">${item.title || 'লাল প্যাকেজ'}</span>
+                <span style="font-size: 9px; opacity: 0.9; margin-top: 2px;">2026.11.08</span>
+              </div>
+              <div class="reward-middle-info">
+                <div class="reward-title-main"><i class="fa-solid fa-gift" style="color: #ff4757;"></i> ${item.title || 'লাল খামের বৃষ্টি'}</div>
+                <div class="reward-desc-sub">পুরস্কার : <span>${item.description || item.title || 'লাল খামের বৃষ্টি'} (৳ ${item.amount || 0})</span></div>
+                <div class="reward-desc-sub" style="color: #0072ff; cursor: pointer;"><i class="fa-solid fa-circle-info"></i> বর্ণনা</div>
+              </div>
+              <div class="reward-right-timer">
+                <span class="timer-label">নির্ধারিত তারিখ</span>
+                <span class="timer-value"><i class="fa-solid fa-clock" style="color: #ff512f;"></i> 07:22:17</span>
+                <button class="claim-action-btn" onclick="claimRewardItem('${item.id}', ${item.amount || 0})">দাবি</button>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        });
+    }
+
+    function claimRewardItem(rewardId, amount) {
+      const numericAmount = parseFloat(amount);
+      if (isNaN(numericAmount) || numericAmount <= 0) {
+        alert("ত্রুটি: পুরস্কারের টাকার পরিমাণ সঠিক নয়!");
+        return;
+      }
+
+      const userRef = db.collection('users_chats').doc(currentUserPhone);
+      const rewardRef = db.collection('admin_rewards').doc(rewardId);
+
+      db.runTransaction((transaction) => {
+        return transaction.get(userRef).then((userDoc) => {
+          return transaction.get(rewardRef).then((rewardDoc) => {
+            if (!rewardDoc.exists) {
+              throw new Error("এই পুরস্কারটি ডেটাবেজে পাওয়া যায়নি!");
+            }
+
+            const rewardData = rewardDoc.data();
+            if (rewardData.status === 'Claimed') {
+              throw new Error("এই বোনাসটি ইতিমধ্যে দাবি করা হয়ে গেছে!");
+            }
+
+            let currentBal = 0;
+            if (userDoc.exists && userDoc.data().balance !== undefined) {
+              currentBal = parseFloat(userDoc.data().balance);
+            }
+            
+            const newBal = currentBal + numericAmount;
+
+            transaction.set(userRef, { balance: newBal }, { merge: true });
+            transaction.update(rewardRef, { status: 'Claimed' });
+          });
+        });
+      }).then(() => {
+        alert(`অভিনন্দন! সফলভাবে ৳${numericAmount} আপনার মূল অ্যাকাউন্টে জমা হয়েছে!`);
+        fetchClaimRewardsList();
+      }).catch((err) => {
+        alert("ত্রুটি: " + err.message);
+      });
+    }
+  </script>
+
+</body>
+</html>
